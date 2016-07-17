@@ -76,4 +76,16 @@ describe('tests/roman-to-arabic/RomanToArabic.spec.js',function(){
             });
         }).bind(this,newProp));
     }
+    // just test for one each of upper case, lower case, number and lower case valid character
+    var invalidCharacters = {A:1,a:1,'2': 1, i: 1};
+    for(prop in invalidCharacters){
+        if(!invalidCharacters.hasOwnProperty(prop)){
+            continue;
+        }
+        describe('When ' + prop + ' is added',(function(propCopy){
+            it('should throw an exception',function() {
+                expect(function () {romanToArabic(propCopy)}).toThrow();
+            });
+        }).bind(this,prop));
+    }
 });
