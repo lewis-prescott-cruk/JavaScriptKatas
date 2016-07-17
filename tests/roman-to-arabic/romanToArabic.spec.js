@@ -9,6 +9,15 @@ describe('tests/roman-to-arabic/RomanToArabic.spec.js',function(){
         CD: 400,
         CM: 900
     };
+    var baseTable = {
+        I: 1,
+        V: 5,
+        X: 10,
+        L: 50,
+        C: 100,
+        D: 500,
+        M: 1000
+    };
     describe('When I is passed in',function(){
         beforeEach(function(){
             returnValue = romanToArabic('I');
@@ -43,6 +52,16 @@ describe('tests/roman-to-arabic/RomanToArabic.spec.js',function(){
         describe('When ' + prop + 'I' + prop + ' is added',(function(propCopy){
             it('should throw an exception',function(){
                 expect(function(){romanToArabic(propCopy + 'I' + propCopy)}).toThrow();
+            });
+        }).bind(this,prop));
+    }
+    for(prop in baseTable){
+        if(!baseTable.hasOwnProperty(prop)){
+            continue;
+        }
+        describe('When ' + prop + prop + prop + prop + ' is added',(function(propCopy){
+            it('should throw an exception',function(){
+                expect(function(){romanToArabic(propCopy+propCopy+propCopy+propCopy)}).toThrow();
             });
         }).bind(this,prop));
     }

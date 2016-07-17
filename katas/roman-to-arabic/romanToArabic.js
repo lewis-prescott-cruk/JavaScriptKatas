@@ -29,6 +29,16 @@ function romanToArabic(romanNumber){
         }
 
     }
+    for(var prop in baseTable){
+        if(!baseTable.hasOwnProperty(prop)){
+            continue;
+        }
+        var rx = new RegExp(prop,'g');
+        if((romanNumber.match(rx) || []).length > 3){
+            throw 'Poorly formed Roman number!';
+        }
+
+    }
 
     switch(romanNumber){
         case 'I':
