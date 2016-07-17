@@ -65,4 +65,15 @@ describe('tests/roman-to-arabic/RomanToArabic.spec.js',function(){
             });
         }).bind(this,prop));
     }
+    for(prop in minusOneTable){
+        if(!minusOneTable.hasOwnProperty(prop)){
+            continue;
+        }
+        var newProp = prop + prop.substr(0,1);
+        describe('When ' + newProp + ' is added',(function(propCopy){
+            it('should throw an exception',function(){
+                expect(function(){romanToArabic(propCopy)}).toThrow();
+            });
+        }).bind(this,newProp));
+    }
 });

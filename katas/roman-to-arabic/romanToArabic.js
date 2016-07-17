@@ -19,21 +19,27 @@ function romanToArabic(romanNumber){
 
     // This block is probably inefficient, but it is
     // easy to reason about.
-    for(var prop in minusOneTable){
+    var prop;
+    var rx;
+    for(prop in minusOneTable){
         if(!minusOneTable.hasOwnProperty(prop)){
            continue;
         }
-        var rx = new RegExp(prop,'g');
+        rx = new RegExp(prop,'g');
         if((romanNumber.match(rx) || []).length > 1){
             throw 'Poorly formed Roman number!';
         }
+        rx = new RegExp(prop + prop.substr(0,1),'g');
+        if((romanNumber.match(rx) || []).length > 0){
+            throw 'Poorly formed Roman number';
+        }
 
     }
-    for(var prop in baseTable){
+    for(prop in baseTable){
         if(!baseTable.hasOwnProperty(prop)){
             continue;
         }
-        var rx = new RegExp(prop,'g');
+        rx = new RegExp(prop,'g');
         if((romanNumber.match(rx) || []).length > 3){
             throw 'Poorly formed Roman number!';
         }
