@@ -25,13 +25,24 @@ describe('tests/roman-to-arabic/RomanToArabic.spec.js',function(){
             expect(returnValue).toBe(4);
         });
     });
-    for(var prop in minusOneTable){
+    var prop;
+    for(prop in minusOneTable){
         if(!minusOneTable.hasOwnProperty(prop)){
             continue;
         }
         describe('When ' + prop + prop + ' is added',(function(propCopy){
             it('should throw an exception',function(){
                 expect(function(){romanToArabic(propCopy+propCopy)}).toThrow();
+            });
+        }).bind(this,prop));
+    }
+    for(prop in minusOneTable){
+        if(!minusOneTable.hasOwnProperty(prop)){
+            continue;
+        }
+        describe('When ' + prop + 'I' + prop + ' is added',(function(propCopy){
+            it('should throw an exception',function(){
+                expect(function(){romanToArabic(propCopy + 'I' + propCopy)}).toThrow();
             });
         }).bind(this,prop));
     }
