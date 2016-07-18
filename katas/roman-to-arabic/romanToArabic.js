@@ -45,20 +45,6 @@ function romanToArabic(romanNumber){
     // easy to reason about.
     var prop;
     var rx;
-    // make sure minusOne only shows up once
-    // and first character isn't also the last character. (IVI for example)
-    var rxString = '(';
-    for(prop in minusOneTable){
-        if(!minusOneTable.hasOwnProperty(prop)){
-           continue;
-        }
-        rxString += prop + prop.substr(0,1) + '|';
-    }
-    rxString += 'x)'; // because x shouldn't be in the string anyhow.
-    rx = new RegExp(rxString,'g');
-    if((romanNumber.match(rx) || []).length > 0){
-        throw poorlyFormedNumber;
-    }
 
     var included = '';
     // make sure digits only show up 3 times
@@ -74,8 +60,18 @@ function romanToArabic(romanNumber){
         }
     }
 
+
+    // make sure first character isn't also the last character. (IVI for example)
+    var rxString = '(';
+    for(prop in minusOneTable){
+        if(!minusOneTable.hasOwnProperty(prop)){
+            continue;
+        }
+        rxString += prop + prop.substr(0,1) + '|';
+    }
     // make sure only I, V, X, L, C and D are the only characters that show up
-    rx = new RegExp('[^' + included + ']','g');
+    rxString += '[^' + included + '])';
+    rx = new RegExp(rxString,'g');
     if((romanNumber.match(rx) || []).length > 0){
         throw poorlyFormedNumber;
     }
