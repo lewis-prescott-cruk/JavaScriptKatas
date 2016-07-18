@@ -18,6 +18,7 @@ describe('tests/roman-to-arabic/RomanToArabic.spec.js',function(){
         D: 500,
         M: 1000
     };
+
     describe('When I is passed in',function(){
         beforeEach(function(){
             returnValue = romanToArabic('I');
@@ -88,4 +89,17 @@ describe('tests/roman-to-arabic/RomanToArabic.spec.js',function(){
             });
         }).bind(this,prop));
     }
+    var badOrderPairs = {DM: 1, LC: 1, VX: 1, IXXL: 1, IXM: 1};
+    for(prop in badOrderPairs){
+        if(!badOrderPairs.hasOwnProperty(prop)){
+            continue;
+        }
+        describe('When ' + prop + ' is added',(function(propCopy){
+            it('should throw an exception',function() {
+                expect(function () {romanToArabic(propCopy)}).toThrow();
+            });
+        }).bind(this,prop));
+    }
+
+
 });
