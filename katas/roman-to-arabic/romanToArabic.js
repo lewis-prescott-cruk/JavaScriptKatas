@@ -1,4 +1,5 @@
 function romanToArabic(romanNumber){
+    var poorlyFormedNumber = 'Poorly formed Roman number';
     var minusOneTable = {
         IV: 4,
         IX: 9,
@@ -46,18 +47,17 @@ function romanToArabic(romanNumber){
     var rx;
     // make sure minusOne only shows up once
     // and first character isn't also the last character. (IVI for example)
+    var rxString = '(';
     for(prop in minusOneTable){
         if(!minusOneTable.hasOwnProperty(prop)){
            continue;
         }
-        rx = new RegExp(prop,'g');
-        if((romanNumber.match(rx) || []).length > 1){
-            throw 'Poorly formed Roman number!';
-        }
-        rx = new RegExp(prop + prop.substr(0,1),'g');
-        if((romanNumber.match(rx) || []).length > 0){
-            throw 'Poorly formed Roman number';
-        }
+        rxString += prop + prop.substr(0,1) + '|';
+    }
+    rxString += 'x)'; // because x shouldn't be in the string anyhow.
+    rx = new RegExp(rxString,'g');
+    if((romanNumber.match(rx) || []).length > 0){
+        throw poorlyFormedNumber;
     }
 
     var included = '';
@@ -70,14 +70,14 @@ function romanToArabic(romanNumber){
         included += prop;
         rx = new RegExp(prop,'g');
         if((romanNumber.match(rx) || []).length > 3){
-            throw 'Poorly formed Roman number!';
+            throw poorlyFormedNumber;
         }
     }
 
     // make sure only I, V, X, L, C and D are the only characters that show up
     rx = new RegExp('[^' + included + ']','g');
     if((romanNumber.match(rx) || []).length > 0){
-        throw 'Poorly formed Roman number';
+        throw poorlyFormedNumber;
     }
 
     // substitute the minusOnes with tokens we can use to compute value.
@@ -97,17 +97,11 @@ function romanToArabic(romanNumber){
         currentValue = compositeValueTable[romanNumberArray[numberIndex]];
         returnValue += currentValue;
         if(numberIndex > 0 && currentValue > lastValue){
-            throw 'Poorly formed Roman number';
+            throw poorlyFormedNumber;
         }
         lastValue = currentValue;
     }
     return returnValue;
 
-    // switch(romanNumber){
-    //     case 'I':
-    //         return 1;
-    //     case 'IV':
-    //         return 4;
-    // }
 }
 
