@@ -100,6 +100,67 @@ describe('tests/roman-to-arabic/RomanToArabic.spec.js',function(){
             });
         }).bind(this,prop));
     }
+    var romanNumbers = {
+        I: 1,
+        II: 2,
+        III: 3,
+        IV: 4,
+        V: 5,
+        VI: 6,
+        VII: 7,
+        VIII: 8,
+        IX: 9,
+        X: 10,
+        XI: 11,
+        XII: 12,
+        XIII: 13,
+        XIV: 14,
+        XV: 15,
+        XVI: 16,
+        XVII: 17,
+        XVIII: 18,
+        XIX: 19,
+        XX: 20,
+        XXI: 21,
+        XXII: 22,
+        XXIII: 23,
+        XXIV: 24,
+        XXV: 25,
+        XXVI: 26,
+        XXVII: 27,
+        XXVIII: 28,
+        XXIX: 29,
+        XXX: 30,
+        XL: 40,
+        XLIV: 44,
+        XLV: 45,
+        XLVI: 46,
+        L: 50,
+        LIV: 54,
+        LV: 55,
+        LVI: 56,
+        LX: 60,
+        XC: 90,
+        C: 100,
+        CI: 101,
+        CXI: 111,
+        CMXCIX: 999,
+        MDCLXVI: 1666
+
+    };
+    for(prop in romanNumbers){
+        if(!romanNumbers.hasOwnProperty(prop)){
+            continue;
+        }
+        describe('When ' + prop + ' is added',(function(propCopy){
+            beforeEach(function(){
+                returnValue = romanToArabic(propCopy);
+            });
+            it('should return ' + romanNumbers[propCopy] ,function() {
+                expect(returnValue).toBe(romanNumbers[propCopy]);
+            });
+        }).bind(this,prop));
+    }
 
 
 });
