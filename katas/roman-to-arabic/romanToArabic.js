@@ -1,29 +1,19 @@
 function romanToArabic(romanNumber){
     var poorlyFormedNumber = 'Poorly formed Roman number';
-    var minusOneTable = {
-        IV: 4,
-        IX: 9,
-        XL: 40,
-        XC: 90,
-        CD: 400,
-        CM: 900
-    };
     var baseTable = {
         I: 1,
-        V: 5,
-        X: 10,
-        L: 50,
-        C: 100,
-        D: 500,
-        M: 1000
-    };
-    var minusOneSub = {
         IV: 'v',
+        V: 5,
         IX: 'x',
+        X: 10,
         XL: 'l',
+        L: 50,
         XC: 'c',
+        C: 100,
         CD: 'd',
-        CM: 'm'
+        D: 500,
+        CM: 'm',
+        M: 1000
     };
     var compositeValueTable = {
         I: 1,
@@ -48,8 +38,8 @@ function romanToArabic(romanNumber){
 
     // make sure first character isn't also the last character. (IVI for example)
     var rxString = '(';
-    for(prop in minusOneTable){
-        if(!minusOneTable.hasOwnProperty(prop)){
+    for(prop in baseTable){
+        if(!baseTable.hasOwnProperty(prop) || prop.length < 2){
             continue;
         }
         rxString += prop + prop.substr(0,1) + '|';
@@ -58,7 +48,7 @@ function romanToArabic(romanNumber){
     // make sure only I, V, X, L, C and D are the only characters that show up
     var included = '';
     for(prop in baseTable){
-        if(!baseTable.hasOwnProperty(prop)){
+        if(!baseTable.hasOwnProperty(prop) || prop.length > 1){
             continue;
         }
         included += prop;
@@ -74,12 +64,12 @@ function romanToArabic(romanNumber){
     }
 
     // substitute the minusOnes with tokens we can use to compute value.
-    for(prop in minusOneTable){
-        if(!minusOneTable.hasOwnProperty(prop)){
+    for(prop in baseTable){
+        if(!baseTable.hasOwnProperty(prop) || prop.length < 2){
             continue;
         }
         rx = new RegExp(prop,'g');
-        romanNumber = romanNumber.replace(rx,minusOneSub[prop]);
+        romanNumber = romanNumber.replace(rx,baseTable[prop]);
     }
 
     var romanNumberArray = romanNumber.split('');
