@@ -36,23 +36,27 @@ function romanToArabic(romanNumber){
     var prop;
     var rx;
 
-    // make sure first character isn't also the last character. (IVI for example)
-    var rxString = '(';
-    for(prop in baseTable){
-        if(!baseTable.hasOwnProperty(prop) || prop.length < 2){
-            continue;
-        }
-        rxString += prop + prop.substr(0,1) + '|';
-    }
 
     // make sure only I, V, X, L, C and D are the only characters that show up
     var included = '';
+    // make sure first character isn't also the last character. (IVI for example)
+    var rxString = '(';
+    // replace two 'digit' Roman with one 'digit' token
+    var romanNumberTokens = romanNumber;
     for(prop in baseTable){
-        if(!baseTable.hasOwnProperty(prop) || prop.length > 1){
+        if(!baseTable.hasOwnProperty(prop)){
             continue;
         }
-        included += prop;
+        if(prop.length === 2){
+            rxString += prop + prop.substr(0,1) + '|';
+            rx = new RegExp(prop,'g');
+            romanNumberTokens = romanNumberTokens.replace(rx,baseTable[prop]);        }
+        else {
+            included += prop;
+        }
     }
+
+
     rxString += '[^' + included + ']|';
 
     // make sure digits only show up 3 times
@@ -63,16 +67,7 @@ function romanToArabic(romanNumber){
         throw poorlyFormedNumber;
     }
 
-    // substitute the minusOnes with tokens we can use to compute value.
-    for(prop in baseTable){
-        if(!baseTable.hasOwnProperty(prop) || prop.length < 2){
-            continue;
-        }
-        rx = new RegExp(prop,'g');
-        romanNumber = romanNumber.replace(rx,baseTable[prop]);
-    }
-
-    var romanNumberArray = romanNumber.split('');
+    var romanNumberArray = romanNumberTokens.split('');
     var returnValue = 0;
     var lastValue = 0;
     var currentValue = 0;
