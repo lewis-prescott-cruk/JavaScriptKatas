@@ -30,9 +30,29 @@ describe('Roman To Number', () => {
             expect(romanToNumber('VIII')).to.equal(8);
         });
     });
-    describe('Roman Numerals IX - XIII', () => {
-        it.skip('should return 9 for IX', () => {
+    describe('Roman Numerals IX - XI', () => {
+        it('should return 9 for IX', () => {
             expect(romanToNumber('IX')).to.equal(9);
         });
+        it('should return 10 for X', () => {
+            expect(romanToNumber('X')).to.equal(10);
+        });
+        it('should return 11 for XI', () => {
+            expect(romanToNumber('XI')).to.equal(11);
+        });
+       
     });
+    describe('Roman Numerals XIV', () => {
+        it('should return 14 for XIV', () => {
+            expect(romanToNumber('XIV')).to.equal(14);
+        });
+
+        it('should return 15 for XV', () => {
+            expect(romanToNumber('XV')).to.equal(15);
+        });
+       
+        
+    });
+
+
 });
