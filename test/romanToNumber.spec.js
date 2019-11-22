@@ -6,12 +6,6 @@ describe('Roman To Number', () => {
         it('should return 1 for I', () => {
             expect(romanToNumber('I')).to.equal(1);
         });
-        it('should return 2 for II', () => {
-            expect(romanToNumber('II')).to.equal(2);
-        });
-        it('should return 3 for III', () => {
-            expect(romanToNumber('III')).to.equal(3);
-        });
     });
     describe('Roman Numerals IV - VIII', () => {
         it('should return 4 for IV', () => {
@@ -31,8 +25,30 @@ describe('Roman To Number', () => {
         });
     });
     describe('Roman Numerals IX - XIII', () => {
-        it.skip('should return 9 for IX', () => {
+        it('should return 9 for IX', () => {
             expect(romanToNumber('IX')).to.equal(9);
+        });
+        it('should return 10 for X', () => {
+            expect(romanToNumber('X')).to.equal(10);
+        });
+        describe('Roman Numerals XI - XIII', () => {
+            it('should return 11 for XI', () => {
+                expect(romanToNumber('XI')).to.equal(11);
+            });
+        });
+    });
+    describe('Roman Numerals XIV - XVIII', () => {
+        it('should return 14 for XIV', () => {
+            expect(romanToNumber('XIV')).to.equal(14);
+        });
+        it('should return 15 for XV', () => {
+            expect(romanToNumber('XV')).to.equal(15);
+        });
+        it('should return 16 for XVI', () => {
+            expect(romanToNumber('XVI')).to.equal(16);
+        });
+        it('should return 17 for XVII', () => {
+            expect(romanToNumber('XVII')).to.equal(17);
         });
     });
 });
